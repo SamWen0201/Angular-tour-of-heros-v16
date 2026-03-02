@@ -5,11 +5,13 @@ import { HEROES } from './mock-heroes';
 
 import { Observable, of } from 'rxjs';
 
+import { MessageService } from './message.service';
+
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
-  constructor() {
+  constructor(private messageService: MessageService) {
     // heroService 是我們的 HeroService 的 injection site
   }
 
@@ -21,6 +23,7 @@ export class HeroService {
   // asychronous
   getHeroes(): Observable<Hero[]> {
     const heroes = of(HEROES);
+    this.messageService.add('HeroService: fetched heroes'); // add message to
     return heroes;
   }
 }
