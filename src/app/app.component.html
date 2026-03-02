@@ -1,4 +1,7 @@
 <h1>{{ title }}</h1>
-<!-- app-heroes 就是 heroes component 的 selector -->
-<app-heroes></app-heroes>
+<nav>
+  <a routerLink="/heroes">Heroes</a>
+  <a routerLink="/dashboard">Dashboard</a>
+</nav>
+<router-outlet></router-outlet>
 <app-messages></app-messages>
