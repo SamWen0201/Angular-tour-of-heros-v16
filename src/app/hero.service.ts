@@ -90,6 +90,24 @@ export class HeroService {
     );
   }
 
+  /* GET heroes whose name contains search term */
+  searchHeroes(term: string): Observable<Hero[]> {
+    // remove white space
+    if (!term.trim()) {
+      // if not search term, return empty search array
+      return of([]);
+    }
+
+    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+      tap((x) =>
+        x.length
+          ? this.log(`found heroes matching "${term}"`)
+          : this.log(`no heroes matching "${term}"`),
+      ),
+      catchError(this.handleError<Hero[]>(`searchHeroes`, [])),
+    );
+  }
+
   /** Log a HeroService message with the MessageService */
   // 因為我們會頻繁地使用到 messageService 的 add 方法，所以我們將他建立為一個 private method
   private log(message: string) {
