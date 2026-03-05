@@ -31,6 +31,22 @@ export class HeroesComponent {
     this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes)); // asynchronous
   }
 
+  add(name: string): void {
+    console.log('add hero');
+    name = name.trim(); // 移除頭尾空白
+    if (!name) {
+      return;
+    }
+    this.heroService.addHero({ name } as Hero).subscribe((hero) => {
+      this.heroes.push();
+    });
+  }
+
+  delete(hero: Hero): void {
+    this.heroes.filter((h) => h !== hero);
+    this.heroService.deleteHero(hero.id).subscribe();
+  }
+
   ngOnInit(): void {
     this.getHeroes();
   }

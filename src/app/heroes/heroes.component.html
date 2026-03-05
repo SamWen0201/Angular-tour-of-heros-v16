@@ -14,20 +14,6 @@
   <input id="name" [(ngModel)]="hero.name" placeholder="name" />
 </div> -->
 
-<!-- 使用 *ngFor -->
-<ul class="heroes">
-  <li *ngFor="let hero of heroes">
-    <button
-      [class.selected]="hero === selectedHero"
-      type="button"
-      (click)="onSelect(hero)"
-    >
-      <span class="badge">{{ hero.id }}</span>
-      <span class="name">{{ hero.name }}</span>
-    </button>
-  </li>
-</ul>
-
 <!-- 使用 *ngIF -->
 <!-- <div *ngIf="selectedHero">
   <h2>{{ selectedHero.name | uppercase }} Details</h2>
@@ -41,4 +27,51 @@
 <!-- 我們將這邊的內容 split 出一個 HeroDetail -->
 
 <!-- HeroDetail bindings -->
-<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+<!-- <app-hero-detail [hero]="selectedHero"></app-hero-detail> -->
+
+<!-- 使用 *ngFor -->
+<!-- <ul class="heroes">
+  <li *ngFor="let hero of heroes">
+    <button
+      [class.selected]="hero === selectedHero"
+      type="button"
+      (click)="onSelect(hero)"
+    >
+      <span class="badge">{{ hero.id }}</span>
+      <span class="name">{{ hero.name }}</span>
+    </button>
+  </li>
+</ul> -->
+
+<!-- 修改為使用  routerLink 去打開英雄詳情 -->
+<ul class="heroes">
+  <li *ngFor="let hero of heroes">
+    <a routerLink="/detail/{{ hero.id }}">
+      <span class="badge">{{ hero.id }}</span>
+      {{ hero.name }}
+    </a>
+    <button
+      type="button"
+      class="delete"
+      title="delete hero"
+      (click)="delete(hero)"
+    >
+      x
+    </button>
+  </li>
+</ul>
+
+<!-- Add a new Hero -->
+<div>
+  <label for="new-hero">Hero name:</label>
+  <input id="new-hero" #heroName />
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button
+    type="button"
+    class="add-button"
+    (click)="add(heroName.value); heroName.value = ''"
+  >
+    Add hero
+  </button>
+</div>
